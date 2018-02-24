@@ -22,11 +22,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkPermission();
-        //init();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            checkPermission();
+        } else {
+            init();
+        }
     }
 
-    private void init(){
+    private void init() {
         mPlayer = MediaPlayer.create(this, R.raw.mewtwo);
         mPlayer.setLooping(false);
 
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         addLineRenderer();
     }
 
-    private void addLineRenderer(){
+    private void addLineRenderer() {
         Paint linePaint = new Paint();
         linePaint.setStrokeWidth(1f);
         linePaint.setAntiAlias(true);
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         mVisualizerView.addRenderer(lineRenderer);
     }
 
-    private void checkPermission(){
+    private void checkPermission() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             requestPermissions(
                     new String[]{Manifest.permission.RECORD_AUDIO}, 21);
